@@ -7,7 +7,6 @@ Example:
 """
 import itertools
 import sys
-from collections.abc import MutableSet
 from dataclasses import dataclass
 
 
@@ -46,7 +45,7 @@ def extend_node(node, chars):
         node = node.left
 
 
-class BinaryTree(MutableSet):
+class BinaryTree:
     def __init__(self, words=()):
         self.__tree = None
         for word in words:
@@ -118,8 +117,6 @@ class BinaryTree(MutableSet):
             else:  # not found (no break)
                 return False
         return True
-
-    __iter__, __len__, discard = [None]*3
 
     def to_dot(self, file):
         file.write("digraph {\n")
