@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+"""Plot binary tree.
+
+Example:
+
+    $ echo $'tesa\nterm' | python . | dot -Tpng | display
+"""
 import itertools
 import sys
 from collections.abc import MutableSet
