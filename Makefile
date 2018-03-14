@@ -1,4 +1,5 @@
 NAME := binary-tree
+PYTHON := python
 
 test: $(NAME).png
 	display $<
