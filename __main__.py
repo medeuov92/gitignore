@@ -71,21 +71,23 @@ class BinaryTree(MutableSet):
             extend_node(node, chars)
         else:
             parent = node = self.__tree
+            assert node
             for char in chars:
                 while True:
                     if not node:
-                        node = parent.right = Node(char)
+                        node = Node(char)
+                        setattr(parent, child, node)
                         extend_node(node, chars)
                         break
                     elif node.value == char:
-                        parent, node = node, node.left
+                        parent, node, child = node, node.left, 'left'
                         break
                     else:
-                        parent, node = node, node.right
+                        parent, node, child = node, node.right, 'right'
 
     def __contains__(self, word):
         """
-        >>> tree = BinaryTree(['test', 'term', 'tell'])
+        >>> tree = BinaryTree(['test', 'term', 'tell', 'tested'])
         >>> 'tell' in tree
         True
         >>> 'test' in tree
@@ -96,19 +98,25 @@ class BinaryTree(MutableSet):
         False
         >>> 'team' in tree
         False
+        >>> 'te' in tree
+        True
+        >>> 'tested' in tree
+        True
+        >>> 'testing' in tree
+        False
         """
         if word and not self.__tree:
             return False  # empty tree, non-empty word
         node = self.__tree
         for char in word:
-            while True:
+            while node:
                 if node.value == char:
                     node = node.left
                     break
                 else:  # not found
                     node = node.right
-                    if not node:
-                        return False
+            else:  # not found (no break)
+                return False
         return True
 
     __iter__, __len__, discard = [None]*3
